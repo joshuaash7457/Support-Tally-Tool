@@ -1,0 +1,140 @@
+======================================================================
+PTZOPTICS SUPPORT EMAIL ANALYSIS REPORT
+Generated: 2026-02-04 14:54:50
+======================================================================
+
+Total Emails Analyzed: 22647
+
+----------------------------------------------------------------------
+
+PTZ CONTROL
+  Total Mentions: 270864
+  Emails Affected: 18548 (81.9%)
+  Top Keywords:
+    - ptz: 180534
+    - pan: 33655
+    - control: 17504
+    - zoom: 15231
+    - tilt: 11555
+    - joystick: 6113
+    - preset: 3623
+    - position: 1573
+    - movement: 941
+    - camera movement: 135
+
+CAMERA MODELS
+  Total Mentions: 33332
+  Emails Affected: 7669 (33.9%)
+  Top Keywords:
+    - 30x: 7148
+    - 20x: 5940
+    - move se: 4556
+    - move 4k: 4388
+    - pt30x: 3924
+    - 12x: 3370
+    - pt20x: 2719
+    - pt12x: 1287
+
+FIRMWARE
+  Total Mentions: 32928
+  Emails Affected: 7014 (31.0%)
+  Top Keywords:
+    - firmware: 12396
+    - update: 11000
+    - version: 4802
+    - upgrade: 3349
+    - latest firmware: 899
+    - flash: 408
+    - software update: 55
+    - firmware download: 19
+
+STREAMING
+  Total Mentions: 32085
+  Emails Affected: 7519 (33.2%)
+  Top Keywords:
+    - stream: 27057
+    - streaming: 1642
+    - rtsp: 1332
+    - video output: 566
+    - live stream: 545
+    - rtmp: 329
+    - latency: 290
+    - srt: 250
+    - video quality: 47
+    - buffering: 27
+
+AUDIO
+  Total Mentions: 16117
+  Emails Affected: 4177 (18.4%)
+  Top Keywords:
+    - audio: 6756
+    - mic: 5505
+    - sound: 3199
+    - microphone: 528
+    - audio input: 65
+    - no audio: 47
+    - audio output: 17
+
+SETUP/INSTALLATION
+  Total Mentions: 9706
+  Emails Affected: 4376 (19.3%)
+  Top Keywords:
+    - install: 3834
+    - setup: 3488
+    - installation: 997
+    - configuration: 753
+    - configure: 567
+    - getting started: 46
+    - initial setup: 21
+
+SOFTWARE
+  Total Mentions: 9506
+  Emails Affected: 3691 (16.3%)
+  Top Keywords:
+    - software: 3723
+    - obs: 3085
+    - application: 1282
+    - vmix: 1110
+    - companion: 207
+    - desktop app: 54
+    - ptzoptics app: 45
+
+POWER ISSUES
+  Total Mentions: 4672
+  Emails Affected: 1700 (7.5%)
+  Top Keywords:
+    - poe: 3367
+    - power supply: 890
+    - not powering: 150
+    - power adapter: 113
+    - no power: 86
+    - power issue: 59
+    - won't turn on: 7
+
+VIDEO QUALITY
+  Total Mentions: 1709
+  Emails Affected: 407 (1.8%)
+  Top Keywords:
+    - dark: 1354
+    - blurry: 164
+    - image quality: 107
+    - video quality: 47
+    - grainy: 18
+    - poor quality: 14
+    - pixelated: 3
+    - overexposed: 2
+
+CONNECTION ISSUES
+  Total Mentions: 412
+  Emails Affected: 266 (1.2%)
+  Top Keywords:
+    - not connecting: 124
+    - network issue: 78
+    - won't connect: 64
+    - can't connect: 52
+    - unable to connect: 35
+    - no connection: 23
+    - connection failed: 19
+    - connection timeout: 17
+
+======================================================================
