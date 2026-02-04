@@ -1,0 +1,105 @@
+{
+  "Connection Issues": [
+    "won't connect",
+    "can't connect",
+    "connection failed",
+    "not connecting",
+    "connection error",
+    "network issue",
+    "no connection",
+    "unable to connect",
+    "connection timeout"
+  ],
+  "Firmware": [
+    "firmware",
+    "update",
+    "upgrade",
+    "version",
+    "flash",
+    "software update",
+    "latest firmware",
+    "firmware download"
+  ],
+  "PTZ Control": [
+    "pan",
+    "tilt",
+    "zoom",
+    "ptz",
+    "movement",
+    "control",
+    "joystick",
+    "preset",
+    "position",
+    "camera movement"
+  ],
+  "Streaming": [
+    "stream",
+    "streaming",
+    "rtmp",
+    "rtsp",
+    "srt",
+    "video quality",
+    "latency",
+    "buffering",
+    "live stream",
+    "video output"
+  ],
+  "Camera Models": [
+    "20x",
+    "12x",
+    "30x",
+    "move 4k",
+    "move se",
+    "pt20x",
+    "pt12x",
+    "pt30x",
+    "supercam"
+  ],
+  "Software": [
+    "ptzoptics app",
+    "ip camera tool",
+    "obs",
+    "vmix",
+    "companion",
+    "software",
+    "application",
+    "desktop app"
+  ],
+  "Power Issues": [
+    "won't turn on",
+    "no power",
+    "power supply",
+    "not powering",
+    "power issue",
+    "poe",
+    "power adapter"
+  ],
+  "Video Quality": [
+    "blurry",
+    "pixelated",
+    "poor quality",
+    "grainy",
+    "dark",
+    "overexposed",
+    "image quality",
+    "video quality"
+  ],
+  "Audio": [
+    "audio",
+    "sound",
+    "microphone",
+    "no audio",
+    "mic",
+    "audio input",
+    "audio output"
+  ],
+  "Setup/Installation": [
+    "setup",
+    "install",
+    "installation",
+    "configuration",
+    "configure",
+    "initial setup",
+    "getting started"
+  ]
+}

@@ -1,0 +1,64 @@
+============================================================
+EMAIL ANALYSIS REPORT
+Generated: 2026-02-04 19:40:39
+============================================================
+
+Total Emails Analyzed: 8
+
+------------------------------------------------------------
+
+PTZ CONTROL
+  Total Mentions: 14
+  Emails Affected: 3
+  Top Keywords:
+    - ptz: 4
+    - pan: 2
+    - tilt: 2
+    - control: 2
+    - preset: 2
+
+FIRMWARE
+  Total Mentions: 9
+  Emails Affected: 2
+  Top Keywords:
+    - firmware: 5
+    - update: 3
+    - version: 1
+
+STREAMING
+  Total Mentions: 9
+  Emails Affected: 2
+  Top Keywords:
+    - stream: 4
+    - streaming: 1
+    - rtmp: 1
+    - video quality: 1
+    - latency: 1
+
+CAMERA MODELS
+  Total Mentions: 6
+  Emails Affected: 4
+  Top Keywords:
+    - 20x: 1
+    - pt20x: 1
+    - 30x: 1
+    - move 4k: 1
+    - 12x: 1
+
+CONNECTION ISSUES
+  Total Mentions: 3
+  Emails Affected: 2
+  Top Keywords:
+    - won't connect: 1
+    - connection error: 1
+    - can't connect: 1
+
+SOFTWARE
+  Total Mentions: 3
+  Emails Affected: 3
+  Top Keywords:
+    - ptzoptics app: 1
+    - obs: 1
+    - vmix: 1
+
+============================================================

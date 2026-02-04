@@ -1,8 +1,7 @@
 import os
 
 counts = {
-    "discovery": 0,
-    "streaming": 0
+    "DNR": 0,
 }
 
 folder = "data/raw"
@@ -18,16 +17,10 @@ for filename in os.listdir(folder):
     text = content.lower()
     total += 1
 
-    if "onvif" in text:
-        counts["discovery"] += 1
+    
+    if "Can you please provide me with a link?" in text:
+        counts["DNR"] += 1
 
-    if "rtsp" in text:
-        counts["streaming"] += 1
-
-    if "poe" in text:
-        counts[power] += 1
-
-     
 
 print("\nWeekly summary:")
 print("Total emails:", total)
