@@ -1,0 +1,16 @@
+# Python dependencies for PTZOptics Email Analysis Tools
+
+# Gmail API dependencies
+google-api-python-client>=2.0.0
+google-auth-httplib2>=0.1.0
+google-auth-oauthlib>=0.5.0
+
+# Note: The following are built-in Python libraries and don't need to be installed:
+# - mailbox
+# - email
+# - csv
+# - json
+# - datetime
+# - collections
+# - os
+# - sys

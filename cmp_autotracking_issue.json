@@ -1,0 +1,65 @@
+{
+  "issue_name": "CMP Autotracking Failure After Update",
+  "issue_id": "CMP-AT-2025-001",
+  "date_reported": "2025-01-27",
+  "severity": "CRITICAL",
+  "description": "Camera Management Platform autotracking feature stopped working after firmware update. Users report that autotracking was working before the update but completely stopped functioning after updating.",
+  "keywords": {
+    "primary": [
+      "cmp",
+      "camera management platform",
+      "autotracking",
+      "auto tracking",
+      "auto-tracking",
+      "autotrack"
+    ],
+    "symptoms": [
+      "autotracking not working",
+      "autotracking stopped",
+      "autotracking failed",
+      "tracking not working",
+      "won't track",
+      "can't track",
+      "tracking broken",
+      "tracking issue",
+      "not tracking",
+      "tracking doesn't work",
+      "autotrack broken",
+      "autotrack not working"
+    ],
+    "context": [
+      "after update",
+      "firmware update",
+      "software update",
+      "new version",
+      "upgraded",
+      "updated to",
+      "since update",
+      "after upgrading",
+      "latest version"
+    ]
+  },
+  "exclude_keywords": [
+    "resolved",
+    "fixed",
+    "working now",
+    "solved",
+    "problem solved",
+    "issue resolved"
+  ],
+  "affected_products": [
+    "cmp",
+    "camera management platform",
+    "pt20x",
+    "pt30x",
+    "pt12x",
+    "move 4k",
+    "move se"
+  ],
+  "match_criteria": {
+    "require_primary": true,
+    "require_symptom": true,
+    "require_context": false,
+    "match_mode": "any"
+  }
+}
