@@ -1,178 +1,255 @@
-# PTZOptics Support Email Analyzer
+# PTZOptics Email Analysis System
 
-A Python tool to analyze support emails and count mentions of specific keywords, categories, and issues.
-
-## Features
-
-- 📊 Count keyword mentions across multiple emails
-- 📁 Support for CSV and TXT file formats
-- 🔧 Customizable keyword categories
-- 📝 Automatic report generation
-- 💾 Save and load custom keyword configurations
-
-## Quick Start
-
-### 1. Install Python
-Make sure you have Python 3.6 or higher installed on your computer.
-
-### 2. Prepare Your Email Export
-
-**For Gmail/Outlook CSV:**
-- Export your emails to CSV format
-- Make sure it includes columns for Subject and Body/Content
-
-**For Text Files:**
-- Export emails as plain text
-- Separate each email with `---` or blank lines
-
-### 3. Run the Analyzer
-
-```bash
-python email_analyzer.py
-```
-
-The program will:
-1. Create a default `keywords.json` file
-2. Ask for your email export file path
-3. Analyze the emails
-4. Generate a report showing counts for each category
-
-## Customizing Keywords
-
-Edit the `keywords.json` file to add your own categories and keywords:
-
-```json
-{
-  "Your Category Name": [
-    "keyword1",
-    "keyword2",
-    "phrase to search for"
-  ],
-  "Another Category": [
-    "more keywords"
-  ]
-}
-```
-
-**Tips:**
-- Keywords are case-insensitive (e.g., "Firmware" matches "firmware")
-- Use specific phrases for better accuracy
-- Group related keywords under meaningful categories
-
-## Example Output
-
-```
-============================================================
-EMAIL ANALYSIS REPORT
-Generated: 2025-01-27 10:30:45
-============================================================
-
-Total Emails Analyzed: 150
-
-------------------------------------------------------------
-
-CONNECTION ISSUES
-  Total Mentions: 45
-  Emails Affected: 32
-  Top Keywords:
-    - won't connect: 18
-    - connection failed: 12
-    - network issue: 8
-    - can't connect: 7
-
-FIRMWARE
-  Total Mentions: 28
-  Emails Affected: 23
-  Top Keywords:
-    - firmware: 15
-    - update: 8
-    - version: 5
-```
-
-## File Format Requirements
-
-### CSV Files
-Your CSV should have columns for:
-- **Subject** (or Email Subject, Title)
-- **Body** (or Content, Message, Email Body)
-
-Example:
-```csv
-Subject,Body,Date,From
-"Camera won't connect","I can't get my PT20X to connect...",2025-01-20,user@example.com
-"Firmware update help","How do I update the firmware?",2025-01-21,user2@example.com
-```
-
-### Text Files
-Emails should be separated by:
-- `---` (three dashes)
-- OR blank lines (double or triple newlines)
-
-Example:
-```
-Subject: Camera won't connect
-From: user@example.com
-
-I can't get my PT20X to connect to the network...
+Automated support email analysis and reporting for PTZOptics. Download emails from Gmail, analyze trends, track critical issues, and generate formatted weekly reports—all with a single command.
 
 ---
 
-Subject: Firmware update help
-From: user2@example.com
+## 🚀 Quick Start
 
-How do I update the firmware on my camera?
+### 1. Install Requirements
+```bash
+pip install -r requirements.txt
 ```
 
-## Advanced Usage
+### 2. Set Up Gmail API
+Follow [FIRST_TIME_SETUP_GUIDE.md](FIRST_TIME_SETUP_GUIDE.md) to:
+- Create Google Cloud project
+- Enable Gmail API
+- Download credentials.json
 
-### Use as a Python Module
+### 3. Run Weekly Report
+```bash
+python monday_morning_automation.py
+```
 
+Done! Your weekly report is generated in 2-3 minutes.
+
+---
+
+## 📊 What You Get
+
+**Automated Weekly Reports with:**
+- Volume metrics (total emails, week-over-week trends)
+- Top 5 issues by category
+- Critical issue tracking
+- AI-generated insights
+- Recommended action items
+
+**Example Output:**
+```
+Total Support Emails: 1,247 ↑ (+12.3% vs last week)
+
+TOP ISSUES:
+1. Connection Issues ↑ (+8.5%) - 245 mentions
+2. Firmware → (-2.1%) - 178 mentions
+3. PTZ Control ↓ (-15.3%) - 134 mentions
+
+CRITICAL ISSUES:
+🔴 CMP Autotracking Failure - 47 customers affected
+
+KEY INSIGHTS:
+• Connection Issues spiked - investigate for new problems
+• CRITICAL: Escalate CMP Autotracking to engineering
+```
+
+---
+
+## 🛠️ Tools Included
+
+### Core Scripts
+
+**`monday_morning_automation.py`** - Complete weekly workflow (recommended)
+- Downloads last week's emails
+- Analyzes trends
+- Tracks critical issues
+- Generates formatted report
+
+**`gmail_downloader.py`** - Fast email downloads
+- Downloads emails in 30 seconds (vs 9 hours with Google Takeout)
+- Filter by date, sender, subject
+- Saves to mbox format
+
+**`email_analyzer_mbox.py`** - General trend analysis
+- 10+ customizable categories
+- Keyword tracking
+- Volume analysis
+
+**`issue_tracker.py`** - Critical issue monitoring
+- Track specific bugs/features
+- Configurable match criteria
+- Export affected customer lists
+
+**`weekly_report_generator.py`** - Report generation
+- Formatted team reports
+- Week-over-week comparison
+- Automated insights
+
+---
+
+## 📋 Weekly Workflow
+
+**Every Monday (5 minutes):**
+
+```bash
+# 1. Open terminal in project folder
+cd path/to/PTZOptics-Email-Analysis
+
+# 2. Run automation
+python monday_morning_automation.py
+
+# 3. Wait 2-3 minutes (script runs automatically)
+
+# 4. Review report
+open weekly_team_report_YYYYMMDD.txt
+
+# 5. Share with team
+```
+
+**That's it!**
+
+---
+
+## ⚙️ Configuration
+
+### Customize Email Source
+Edit `monday_morning_automation.py`:
 ```python
-from email_analyzer import EmailAnalyzer
-
-# Create analyzer with custom keywords
-analyzer = EmailAnalyzer('my_keywords.json')
-
-# Read emails from CSV
-emails = analyzer.read_csv_file('support_emails.csv', 
-                                email_column='Body',
-                                subject_column='Subject')
-
-# Analyze
-results = analyzer.analyze_emails(emails)
-
-# Generate report
-analyzer.generate_report('my_report.txt')
+GMAIL_QUERY = "to:your-support@email.com"  # Your support email
+DAYS_BACK = 7  # Number of days to analyze
 ```
 
-### Add Categories Programmatically
-
-```python
-analyzer = EmailAnalyzer()
-
-# Add a new category
-analyzer.add_category('New Issue Type', [
-    'keyword1',
-    'keyword2',
-    'specific phrase'
-])
-
-# Save updated keywords
-analyzer.save_keywords('updated_keywords.json')
+### Customize Keywords
+Edit `keywords.json` to add/remove categories:
+```json
+{
+  "Your Category": ["keyword1", "keyword2"],
+  "Connection Issues": ["won't connect", "connection failed"]
+}
 ```
 
-## Common PTZOptics Keywords
+### Track Critical Issues
+Create issue config files (see examples in repo):
+```json
+{
+  "issue_name": "Feature X Broken After Update",
+  "keywords": {
+    "primary": ["feature x"],
+    "symptoms": ["not working", "broken"]
+  }
+}
+```
 
-The default configuration includes categories for:
-- Connection Issues
-- Firmware
-- PTZ Control
-- Streaming
-- Camera Models
-- Software
-- Power Issues
-- Video Quality
-- Audio
-- Setup/Installation
+---
 
+## 📖 Documentation
 
+- **[FIRST_TIME_SETUP_GUIDE.md](FIRST_TIME_SETUP_GUIDE.md)** - Complete setup walkthrough (start here!)
+- **[SETUP_CHECKLIST.md](SETUP_CHECKLIST.md)** - Printable setup checklist
+- **[AUTOMATED_REPORTING_GUIDE.md](AUTOMATED_REPORTING_GUIDE.md)** - Report customization
+- **[GMAIL_SETUP_GUIDE.md](GMAIL_SETUP_GUIDE.md)** - Detailed Gmail API setup
+- **[ISSUE_TRACKER_GUIDE.md](ISSUE_TRACKER_GUIDE.md)** - Critical issue tracking
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common problems & solutions
+- **[SECURITY_GUIDE.md](SECURITY_GUIDE.md)** - Security & privacy info
+
+---
+
+## 🔐 Security
+
+**Safe to commit (public repo):**
+- ✅ All `.py` code files
+- ✅ Documentation (`.md` files)
+- ✅ Configuration (`keywords.json`)
+
+**NEVER commit (contains credentials/customer data):**
+- ❌ `credentials.json` (Gmail API credentials)
+- ❌ `token.pickle` (auth token)
+- ❌ `*.mbox` files (customer emails)
+- ❌ `*_report.txt` (customer data)
+- ❌ `*.csv` exports (customer lists)
+
+The `.gitignore` file protects these automatically.
+
+**Each team member needs their own `credentials.json` - don't share!**
+
+---
+
+## 💡 Key Features
+
+- ⚡ **Fast:** 30-second email downloads vs 9-hour Google Takeout
+- 🤖 **Automated:** One command generates complete weekly reports
+- 📊 **Insightful:** AI-generated insights and trend detection
+- 🎯 **Precise:** Track specific issues with configurable criteria
+- 📈 **Historical:** Week-over-week comparison and trending
+- 🔒 **Secure:** Read-only Gmail access, no data retention
+
+---
+
+## 🆘 Common Issues
+
+**"python: command not found"**
+→ Use `python3` instead of `python`
+
+**"credentials.json not found"**
+→ Complete Gmail API setup in FIRST_TIME_SETUP_GUIDE.md
+
+**"No emails found"**
+→ Check GMAIL_QUERY matches your support email
+
+**"Authentication failed"**
+→ Delete `token.pickle` and re-run to re-authorize
+
+See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for more help.
+
+---
+
+## 📦 Requirements
+
+- Python 3.6+
+- Gmail account with support email access
+- Google Cloud project (free, setup in guide)
+
+---
+
+## 🎯 Use Cases
+
+**Weekly Support Overview**
+- What are customers complaining about?
+- Which issues are trending up/down?
+- How does this week compare to last week?
+
+**Critical Issue Monitoring**
+- How many customers affected by specific bug?
+- Is the issue getting worse or better?
+- Who needs follow-up communication?
+
+**Data-Driven Decisions**
+- Which KB articles to create?
+- Where to allocate support resources?
+- When to escalate to engineering?
+
+---
+
+## 🤝 Contributing
+
+This is an internal PTZOptics tool, but improvements are welcome! 
+
+---
+
+## 📄 License
+
+Internal use for PTZOptics support team.
+
+---
+
+## 👥 For New Team Members
+
+1. Read [FIRST_TIME_SETUP_GUIDE.md](FIRST_TIME_SETUP_GUIDE.md)
+2. Print [SETUP_CHECKLIST.md](SETUP_CHECKLIST.md)
+3. Follow the steps (takes ~30 minutes)
+4. Run your first report!
+
+---
+
+**Questions?** Check the documentation files or create an issue.
+
+**Version:** 1.0 | **Last Updated:** February 2026
