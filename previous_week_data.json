@@ -1,0 +1,46 @@
+{
+  "date": "2026-02-10",
+  "total_emails": 123,
+  "categories": {
+    "Connection Issues": {
+      "total_mentions": 9,
+      "emails_with_category": 9
+    },
+    "Firmware": {
+      "total_mentions": 198,
+      "emails_with_category": 40
+    },
+    "PTZ Control": {
+      "total_mentions": 602,
+      "emails_with_category": 85
+    },
+    "Streaming": {
+      "total_mentions": 178,
+      "emails_with_category": 54
+    },
+    "Camera Models": {
+      "total_mentions": 171,
+      "emails_with_category": 59
+    },
+    "Software": {
+      "total_mentions": 63,
+      "emails_with_category": 30
+    },
+    "Power Issues": {
+      "total_mentions": 17,
+      "emails_with_category": 12
+    },
+    "Video Quality": {
+      "total_mentions": 6,
+      "emails_with_category": 6
+    },
+    "Audio": {
+      "total_mentions": 137,
+      "emails_with_category": 31
+    },
+    "Setup/Installation": {
+      "total_mentions": 148,
+      "emails_with_category": 37
+    }
+  }
+}

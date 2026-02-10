@@ -12,3 +12,133 @@ data/raw/
 # Virtual environments
 .venv/
 
+# PTZOptics Email Analysis Tools - .gitignore
+
+# ==============================================================================
+# CRITICAL: Gmail API Credentials & Tokens
+# These contain your personal authentication data - NEVER commit!
+# ==============================================================================
+credentials.json
+token.pickle
+client_secret*.json
+oauth2*.json
+
+# ==============================================================================
+# Email Files - Contain Customer Data
+# ==============================================================================
+*.mbox
+*.mbx
+*.eml
+*.pst
+
+# Downloaded email archives
+gmail_emails_*.mbox
+support_emails_*.mbox
+weekly_emails.mbox
+
+# ==============================================================================
+# Analysis Reports & Exports - Contain Customer Data
+# ==============================================================================
+*_report.txt
+*_report_*.txt
+email_report_*.txt
+issue_report_*.txt
+test_report.txt
+
+# Customer data exports
+affected_emails_*.csv
+*_emails_*.csv
+
+# ==============================================================================
+# Python
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# ==============================================================================
+# IDEs and Editors
+# ==============================================================================
+# Visual Studio
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# PyCharm
+.idea/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# ==============================================================================
+# Operating System Files
+# ==============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ==============================================================================
+# Temporary Files
+# ==============================================================================
+*.tmp
+*.temp
+*.log
+*.bak
+*.swp
+*.swo
+*~
+
+# ==============================================================================
+# Test Files (unless you want to keep examples)
+# ==============================================================================
+# Uncomment these if you don't want test files in repo:
+# sample_emails.txt
+# test_*.py
+
+# ==============================================================================
+# SAFE TO COMMIT:
+# ==============================================================================
+# - All .py code files (gmail_downloader.py, email_analyzer_mbox.py, etc.)
+# - All .md documentation files
+# - keywords.json (just keyword lists, no customer data)
+# - example_*.json (example configurations, no customer data)
+# - requirements.txt
+# - README.md
+# ==============================================================================
