@@ -38,25 +38,25 @@ def monday_morning_report():
         # Add more issue config files here as needed
     ]
     
-    # Output directory (optional - leave empty for current directory)
-    OUTPUT_DIR = ""  # e.g., "reports/" to save in reports folder
+    # Output directories
+    DATA_DIR = "data/raw"  # Where to save downloaded emails
+    REPORTS_DIR = "reports"  # Where to save reports
     
     # ========================================
     # END CONFIGURATION
     # ========================================
     
-    timestamp = datetime.now().strftime('%Y%m%d')
+    # Create directories if they don't exist
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
+    if not os.path.exists(REPORTS_DIR):
+        os.makedirs(REPORTS_DIR)
+    
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     mbox_filename = f"support_emails_{timestamp}.mbox"
     
-    if OUTPUT_DIR and not os.path.exists(OUTPUT_DIR):
-        os.makedirs(OUTPUT_DIR)
-    
-    if OUTPUT_DIR:
-        mbox_path = os.path.join(OUTPUT_DIR, mbox_filename)
-        report_path = os.path.join(OUTPUT_DIR, f"weekly_team_report_{timestamp}.txt")
-    else:
-        mbox_path = mbox_filename
-        report_path = f"weekly_team_report_{timestamp}.txt"
+    mbox_path = os.path.join(DATA_DIR, mbox_filename)
+    report_path = os.path.join(REPORTS_DIR, f"weekly_team_report_{timestamp}.txt")
     
     # Step 1: Download emails
     print("\n" + "="*70)

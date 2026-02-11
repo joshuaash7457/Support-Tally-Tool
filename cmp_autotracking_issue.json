@@ -52,9 +52,7 @@
     "camera management platform",
     "pt20x",
     "pt30x",
-    "pt12x",
-    "move 4k",
-    "move se"
+    "pt12x"
   ],
   "match_criteria": {
     "require_primary": true,
