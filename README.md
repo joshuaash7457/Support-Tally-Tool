@@ -149,7 +149,6 @@ Create issue config files (see examples in repo):
 - **[GMAIL_SETUP_GUIDE.md](GMAIL_SETUP_GUIDE.md)** - Detailed Gmail API setup
 - **[ISSUE_TRACKER_GUIDE.md](ISSUE_TRACKER_GUIDE.md)** - Critical issue tracking
 - **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common problems & solutions
-- **[SECURITY_GUIDE.md](SECURITY_GUIDE.md)** - Security & privacy info
 
 ---
 ## 💡 Key Features
