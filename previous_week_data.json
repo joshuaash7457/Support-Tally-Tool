@@ -1,46 +1,66 @@
 {
-  "date": "2026-02-10",
-  "total_emails": 132,
+  "date": "2026-02-24",
+  "total_emails": 153,
   "categories": {
     "Connection Issues": {
-      "total_mentions": 9,
-      "emails_with_category": 9
+      "total_mentions": 0,
+      "emails_with_category": 0
     },
     "Firmware": {
-      "total_mentions": 242,
-      "emails_with_category": 47
+      "total_mentions": 611,
+      "emails_with_category": 68
     },
     "PTZ Control": {
-      "total_mentions": 645,
-      "emails_with_category": 93
+      "total_mentions": 839,
+      "emails_with_category": 100
     },
     "Streaming": {
-      "total_mentions": 190,
-      "emails_with_category": 59
+      "total_mentions": 221,
+      "emails_with_category": 55
     },
     "Camera Models": {
-      "total_mentions": 199,
-      "emails_with_category": 67
+      "total_mentions": 143,
+      "emails_with_category": 44
     },
     "Software": {
-      "total_mentions": 66,
-      "emails_with_category": 33
+      "total_mentions": 49,
+      "emails_with_category": 25
     },
     "Power Issues": {
-      "total_mentions": 17,
-      "emails_with_category": 12
+      "total_mentions": 23,
+      "emails_with_category": 18
     },
     "Video Quality": {
-      "total_mentions": 6,
-      "emails_with_category": 6
+      "total_mentions": 62,
+      "emails_with_category": 7
     },
     "Audio": {
-      "total_mentions": 138,
-      "emails_with_category": 32
+      "total_mentions": 111,
+      "emails_with_category": 39
     },
     "Setup/Installation": {
-      "total_mentions": 155,
-      "emails_with_category": 40
+      "total_mentions": 89,
+      "emails_with_category": 35
+    },
+    "Errors": {
+      "total_mentions": 136,
+      "emails_with_category": 30
+    },
+    "Image Settings": {
+      "total_mentions": 366,
+      "emails_with_category": 66
+    },
+    "Defects": {
+      "total_mentions": 0,
+      "emails_with_category": 0
+    },
+    "Image Issues": {
+      "total_mentions": 47,
+      "emails_with_category": 26
+    },
+    "SuperJoy Issues": {
+      "total_mentions": 8,
+      "emails_with_category": 2
     }
   }
 }

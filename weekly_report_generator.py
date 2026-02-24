@@ -8,7 +8,7 @@ import os
 import json
 from datetime import datetime, timedelta
 from email_analyzer_mbox import EmailAnalyzer
-from issue_tracker import IssueTracker
+from enhanced_issue_tracker import IssueTracker
 
 class WeeklyReportGenerator:
     def __init__(self):
@@ -103,7 +103,13 @@ class WeeklyReportGenerator:
                     'name': issue_name,
                     'matched_count': results['matched_emails_count'],
                     'percentage': results['match_percentage'],
-                    'severity': tracker.issue_config.get('severity', 'UNKNOWN')
+                    'severity': tracker.issue_config.get('severity', 'UNKNOWN'),
+                    # NEW: Add severity tracking data
+                    'avg_severity': results.get('avg_severity', 0),
+                    'high_severity_count': results.get('high_severity_count', 0),
+                    'critical_severity_count': results.get('critical_severity_count', 0),
+                    'alert_threshold': tracker.issue_config.get('tracking_metrics', {}).get('alert_threshold', 5),
+                    'escalation_threshold': tracker.issue_config.get('tracking_metrics', {}).get('escalation_threshold', 10)
                 }
     
     def generate_team_report(self, output_file=None):
@@ -194,6 +200,20 @@ class WeeklyReportGenerator:
                 lines.append(f"   • Issue ID: {issue_id}")
                 lines.append(f"   • Severity: {severity}")
                 lines.append(f"   • Reports this week: {data['matched_count']} ({data['percentage']:.2f}% of emails)")
+                
+                # NEW: Add severity analysis
+                if data.get('avg_severity', 0) > 0:
+                    lines.append(f"   • Average severity: {data['avg_severity']:.1f}/20")
+                    lines.append(f"   • High severity cases (10+): {data['high_severity_count']}")
+                    lines.append(f"   • Critical cases (15+): {data['critical_severity_count']}")
+                    
+                    # Alert status
+                    if data['matched_count'] >= data.get('escalation_threshold', 10):
+                        lines.append(f"   • 🔴 STATUS: ESCALATION REQUIRED")
+                    elif data['matched_count'] >= data.get('alert_threshold', 5):
+                        lines.append(f"   • 🟡 STATUS: ALERT THRESHOLD REACHED")
+                    else:
+                        lines.append(f"   • 🟢 STATUS: Normal levels")
                 
                 # TODO: Add week-over-week comparison when we track historical issue data
         

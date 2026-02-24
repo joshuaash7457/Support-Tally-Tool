@@ -1,0 +1,144 @@
+{
+  "issue_name": "SuperJoy 4K Stream Decoder Freezing",
+  "issue_id": "SUPERJOY-4K-FREEZE-2025-001",
+  "date_reported": "2025-02-24",
+  "severity": "HIGH",
+  "description": "SuperJoy freezes when handling high-bitrate 4K RTSP streams through its built-in decoder. The HDMI output becomes unresponsive, pixelated, or freezes when connected to 4K cameras with high bitrate settings. This affects the joystick's ability to decode and display 4K video feeds via HDMI output.",
+  "root_cause": "SuperJoy's built-in RTSP decoder cannot handle the processing load of high-bitrate 4K streams, causing system freeze and requiring reboot",
+  "technical_details": {
+    "affected_component": "SuperJoy built-in RTSP decoder and HDMI output",
+    "stream_format": "RTSP 4K video feeds",
+    "typical_bitrates": "High bitrate 4K streams (typically >25-40 Mbps)",
+    "workaround": "Lower camera bitrate settings, use 1080p output, or reduce stream complexity"
+  },
+  "keywords": {
+    "primary": [
+      "superjoy",
+      "super joy",
+      "pt-superjoy",
+      "joystick",
+      "controller"
+    ],
+    "symptoms": [
+      "freezing",
+      "freeze",
+      "frozen",
+      "unresponsive",
+      "hanging",
+      "hang",
+      "locked up",
+      "not responding",
+      "pixelated",
+      "pixelation",
+      "choppy",
+      "stuttering",
+      "buffering",
+      "lag",
+      "lagging",
+      "slow",
+      "reboot required",
+      "need to restart",
+      "hdmi output",
+      "hdmi not working",
+      "monitor issues",
+      "display problems"
+    ],
+    "video_related": [
+      "4k",
+      "4k video",
+      "4k stream",
+      "4k camera",
+      "high resolution",
+      "high bitrate",
+      "bitrate",
+      "video quality",
+      "rtsp",
+      "rtsp stream",
+      "rtsp feed",
+      "video feed",
+      "camera feed",
+      "decoder",
+      "decoding",
+      "encoding"
+    ],
+    "context": [
+      "hdmi output",
+      "hdmi monitor",
+      "external monitor",
+      "preview monitor",
+      "video output",
+      "display output",
+      "connected monitor",
+      "rtsp decoder",
+      "built-in decoder",
+      "video preview",
+      "camera preview"
+    ],
+    "performance": [
+      "high bandwidth",
+      "bandwidth usage",
+      "network load",
+      "processing load",
+      "cpu usage",
+      "system resources",
+      "memory usage",
+      "performance issues",
+      "slows down",
+      "impacts performance"
+    ]
+  },
+  "exclude_keywords": [
+    "resolved",
+    "fixed",
+    "working now",
+    "solved",
+    "problem solved",
+    "issue resolved",
+    "no longer freezing",
+    "stable now"
+  ],
+  "affected_products": [
+    "superjoy",
+    "pt-superjoy",
+    "pt-superjoy-g1",
+    "joystick controller",
+    "move 4k",
+    "studio 4k",
+    "link 4k",
+    "4k camera"
+  ],
+  "camera_models_4k": [
+    "move 4k",
+    "studio 4k", 
+    "link 4k",
+    "pt20x-4k",
+    "pt30x-4k",
+    "pt12x-4k"
+  ],
+  "match_criteria": {
+    "require_primary": true,
+    "require_symptom": true,
+    "require_video_related": false,
+    "require_context": false,
+    "match_mode": "any",
+    "minimum_keyword_matches": 2,
+    "exclude_if_resolved": true
+  },
+  "tracking_metrics": {
+    "alert_threshold": 5,
+    "escalation_threshold": 10,
+    "trend_window_days": 7,
+    "priority_keywords": [
+      "freezing",
+      "4k",
+      "superjoy",
+      "hdmi output",
+      "reboot required"
+    ]
+  },
+  "related_articles": [
+    "https://kb.ptzoptics.com/joysticks/superjoy/freezing/",
+    "PTZOptics Streaming Settings Guide (4K bitrate recommendations)",
+    "SuperJoy User Manual (RTSP decoder specifications)"
+  ]
+}

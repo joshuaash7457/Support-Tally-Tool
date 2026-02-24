@@ -29,20 +29,22 @@ class EmailAnalyzer:
                     "flash", "software update"
                 ],
                 "PTZ Control": [
-                    "pan", "tilt", "zoom", "ptz", "movement", 
-                    "control", "joystick", "preset"
+                    "pan", "tilt", "zoom", "movement", 
+                    "control", "preset"
                 ],
                 "Streaming": [
                     "stream", "streaming", "rtmp", "rtsp", "srt",
                     "video quality", "latency", "buffering"
                 ],
                 "Camera Models": [
-                    "20x", "12x", "30x", "move 4k", "move se",
-                    "pt20x", "pt12x", "pt30x"
+                    "move 4k", "move se",
+                    "g2", "studio pro", "studio se", "studio 4k", "simpltrack",
+                    "simpletrack"
                 ],
                 "Software": [
-                    "ptzoptics app", "ip camera tool", "obs",
-                    "vmix", "companion", "software"
+                    "ptzoptics app", "ip camera tool",
+                    "companion", "software", "cmp", "camera management platform",
+                    "1.4.1 app"
                 ]
             }
     

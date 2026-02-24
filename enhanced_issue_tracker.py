@@ -21,6 +21,58 @@ class IssueTracker:
         if issue_config_file and os.path.exists(issue_config_file):
             self.load_issue_config(issue_config_file)
     
+    def calculate_severity_score(self, matched_keywords, matched_symptoms, email_text):
+        """Calculate severity score for an email based on keyword matches and content"""
+        score = 0
+        email_lower = email_text.lower()
+        
+        # Base score for any match
+        score += 1
+        
+        # Get priority keywords from config if available
+        priority_keywords = self.issue_config.get('tracking_metrics', {}).get('priority_keywords', [])
+        
+        # Priority keyword multiplier
+        for keyword in priority_keywords:
+            if keyword.lower() in email_lower:
+                score += 3
+        
+        # Multiple keyword matches indicate higher severity
+        if len(matched_keywords) >= 3:
+            score += 2
+        if len(matched_symptoms) >= 3:
+            score += 3
+        elif len(matched_symptoms) >= 2:
+            score += 1
+        
+        # Check for severity indicators in symptoms
+        high_severity_symptoms = ['freezing', 'frozen', 'unresponsive', 'reboot required', 'locked up', 'not working']
+        for symptom in matched_symptoms:
+            if any(severe in symptom.lower() for severe in high_severity_symptoms):
+                score += 2
+        
+        # Look for urgency indicators
+        urgency_words = ['urgent', 'critical', 'broken', 'failed', 'error', 'issue', 'problem']
+        for word in urgency_words:
+            if word in email_lower:
+                score += 1
+        
+        # Look for impact indicators
+        impact_words = ['production', 'live', 'customer', 'client', 'broadcast', 'streaming']
+        for word in impact_words:
+            if word in email_lower:
+                score += 2
+        
+        # Look for quantity indicators (multiple instances, repeated issues)
+        if 'multiple' in email_lower or 'several' in email_lower or 'many' in email_lower:
+            score += 1
+        
+        # Check for specific technical details (numbers, models, etc.)
+        if re.search(r'\d+', email_text):  # Contains numbers (versions, quantities, etc.)
+            score += 1
+        
+        return min(score, 20)  # Cap at 20
+    
     def load_issue_config(self, filepath):
         """Load issue configuration from JSON file"""
         try:
@@ -90,6 +142,15 @@ class IssueTracker:
                 "require_symptom": true,
                 "require_context": false,
                 "match_mode": "any"
+            },
+            "tracking_metrics": {
+                "alert_threshold": 5,
+                "escalation_threshold": 10,
+                "priority_keywords": [
+                    "autotracking",
+                    "not working",
+                    "failed"
+                ]
             }
         }
         
@@ -211,7 +272,7 @@ class IssueTracker:
     
     def analyze_for_issue(self, emails, metadata=None, show_progress=True):
         """
-        Analyze emails for the specific issue
+        Analyze emails for the specific issue with severity scoring
         
         Args:
             emails: List of email text strings
@@ -232,6 +293,7 @@ class IssueTracker:
         symptom_matches = defaultdict(int)
         context_matches = defaultdict(int)
         product_mentions = defaultdict(int)
+        severity_scores = []  # NEW: Track severity scores
         
         match_criteria = self.issue_config.get('match_criteria', {})
         require_primary = match_criteria.get('require_primary', True)
@@ -302,6 +364,14 @@ class IssueTracker:
                 is_match = False
             
             if is_match:
+                # NEW: Calculate severity score
+                severity_score = self.calculate_severity_score(
+                    matched_keywords + matched_symptoms, 
+                    matched_symptoms, 
+                    email
+                )
+                severity_scores.append(severity_score)
+                
                 email_data = {
                     'email_index': i,
                     'email_text': email[:500] + '...' if len(email) > 500 else email,
@@ -309,9 +379,18 @@ class IssueTracker:
                     'matched_symptoms': matched_symptoms,
                     'matched_contexts': matched_contexts,
                     'mentioned_products': mentioned_products,
-                    'metadata': metadata[i] if metadata and i < len(metadata) else {}
+                    'metadata': metadata[i] if metadata and i < len(metadata) else {},
+                    'severity_score': severity_score  # NEW: Include severity score
                 }
                 matched_emails.append(email_data)
+        
+        # Sort by severity score (highest first)
+        matched_emails.sort(key=lambda x: x['severity_score'], reverse=True)
+        
+        # NEW: Calculate severity statistics
+        avg_severity = sum(severity_scores) / len(severity_scores) if severity_scores else 0
+        high_severity_count = len([s for s in severity_scores if s >= 10])
+        critical_severity_count = len([s for s in severity_scores if s >= 15])
         
         self.results = {
             'total_emails_analyzed': len(emails),
@@ -321,7 +400,12 @@ class IssueTracker:
             'symptom_matches': dict(symptom_matches),
             'context_matches': dict(context_matches),
             'product_mentions': dict(product_mentions),
-            'matched_emails': matched_emails
+            'matched_emails': matched_emails,
+            # NEW: Severity metrics
+            'severity_scores': severity_scores,
+            'avg_severity': avg_severity,
+            'high_severity_count': high_severity_count,
+            'critical_severity_count': critical_severity_count
         }
         
         self.affected_emails = matched_emails
@@ -330,31 +414,65 @@ class IssueTracker:
         print(f"  Found {len(matched_emails)} emails matching issue criteria")
         print(f"  ({self.results['match_percentage']:.2f}% of total)")
         
+        # NEW: Show severity summary
+        if severity_scores:
+            print(f"  Average severity: {avg_severity:.1f}/20")
+            print(f"  High severity cases (10+): {high_severity_count}")
+            print(f"  Critical cases (15+): {critical_severity_count}")
+            
+            # Check alert thresholds
+            alert_threshold = self.issue_config.get('tracking_metrics', {}).get('alert_threshold', 5)
+            escalation_threshold = self.issue_config.get('tracking_metrics', {}).get('escalation_threshold', 10)
+            
+            if len(matched_emails) >= escalation_threshold:
+                print(f"  🔴 ESCALATION: {len(matched_emails)} cases >= threshold ({escalation_threshold})")
+            elif len(matched_emails) >= alert_threshold:
+                print(f"  🟡 ALERT: {len(matched_emails)} cases >= threshold ({alert_threshold})")
+            else:
+                print(f"  🟢 Normal: {len(matched_emails)} cases < alert threshold ({alert_threshold})")
+        
         return self.results
     
     def generate_report(self, output_file=None, include_email_details=True):
-        """Generate detailed report for the specific issue"""
+        """Generate detailed report for the specific issue with severity analysis"""
         if not self.results:
             print("✗ No results to report. Run analyze_for_issue() first.")
             return
         
         lines = []
         lines.append("=" * 80)
-        lines.append("CRITICAL ISSUE TRACKING REPORT")
+        lines.append("CRITICAL ISSUE TRACKER REPORT")
         lines.append("=" * 80)
-        lines.append(f"\nGenerated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        lines.append(f"\nIssue: {self.issue_config.get('issue_name', 'N/A')}")
+        lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        lines.append(f"Issue: {self.issue_config.get('issue_name', 'Unknown Issue')}")
         lines.append(f"Issue ID: {self.issue_config.get('issue_id', 'N/A')}")
-        lines.append(f"Severity: {self.issue_config.get('severity', 'N/A')}")
-        lines.append(f"Date Reported: {self.issue_config.get('date_reported', 'N/A')}")
-        lines.append(f"\nDescription: {self.issue_config.get('description', 'N/A')}")
+        lines.append(f"Severity Level: {self.issue_config.get('severity', 'UNKNOWN')}")
         
+        # Summary with severity metrics
         lines.append("\n" + "-" * 80)
-        lines.append("ANALYSIS SUMMARY")
+        lines.append("SUMMARY")
         lines.append("-" * 80)
-        lines.append(f"\nTotal Emails Analyzed: {self.results['total_emails_analyzed']}")
+        lines.append(f"Total Emails Analyzed: {self.results['total_emails_analyzed']}")
         lines.append(f"Emails Matching Issue: {self.results['matched_emails_count']}")
-        lines.append(f"Match Rate: {self.results['match_percentage']:.2f}%")
+        lines.append(f"Match Percentage: {self.results['match_percentage']:.2f}%")
+        
+        # NEW: Severity summary
+        if self.results.get('severity_scores'):
+            lines.append(f"\nSEVERITY ANALYSIS:")
+            lines.append(f"  Average Severity: {self.results['avg_severity']:.1f}/20")
+            lines.append(f"  High Severity Cases (10+): {self.results['high_severity_count']}")
+            lines.append(f"  Critical Cases (15+): {self.results['critical_severity_count']}")
+            
+            # Alert status
+            alert_threshold = self.issue_config.get('tracking_metrics', {}).get('alert_threshold', 5)
+            escalation_threshold = self.issue_config.get('tracking_metrics', {}).get('escalation_threshold', 10)
+            
+            if self.results['matched_emails_count'] >= escalation_threshold:
+                lines.append(f"  🔴 STATUS: ESCALATION REQUIRED (>= {escalation_threshold} cases)")
+            elif self.results['matched_emails_count'] >= alert_threshold:
+                lines.append(f"  🟡 STATUS: ALERT THRESHOLD REACHED (>= {alert_threshold} cases)")
+            else:
+                lines.append(f"  🟢 STATUS: Below alert threshold (< {alert_threshold} cases)")
         
         # Keyword breakdown
         if self.results['keyword_matches']:
@@ -396,14 +514,15 @@ class IssueTracker:
             for product, count in sorted_products:
                 lines.append(f"  • {product}: {count} mentions")
         
-        # Email details
+        # NEW: High severity email details
         if include_email_details and self.affected_emails:
             lines.append("\n" + "=" * 80)
-            lines.append("AFFECTED EMAIL DETAILS")
+            lines.append("HIGH SEVERITY EMAIL DETAILS (Top 10)")
             lines.append("=" * 80)
             
-            for i, email_data in enumerate(self.affected_emails[:50], 1):  # Limit to first 50
-                lines.append(f"\n--- Email #{i} ---")
+            # Show top 10 by severity
+            for i, email_data in enumerate(self.affected_emails[:10], 1):
+                lines.append(f"\n--- Email #{i} (Severity: {email_data.get('severity_score', 0)}/20) ---")
                 
                 meta = email_data.get('metadata', {})
                 if meta.get('subject'):
@@ -422,8 +541,8 @@ class IssueTracker:
                 
                 lines.append(f"\nPreview:\n{email_data['email_text']}")
             
-            if len(self.affected_emails) > 50:
-                lines.append(f"\n... and {len(self.affected_emails) - 50} more emails")
+            if len(self.affected_emails) > 10:
+                lines.append(f"\n... and {len(self.affected_emails) - 10} more emails")
         
         lines.append("\n" + "=" * 80)
         lines.append("END OF REPORT")
@@ -451,7 +570,7 @@ class IssueTracker:
         try:
             with open(output_file, 'w', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
-                writer.writerow(['Subject', 'From', 'Date', 'Matched Keywords', 
+                writer.writerow(['Subject', 'From', 'Date', 'Severity Score', 'Matched Keywords', 
                                'Matched Symptoms', 'Products', 'Preview'])
                 
                 for email_data in self.affected_emails:
@@ -460,6 +579,7 @@ class IssueTracker:
                         meta.get('subject', ''),
                         meta.get('from', ''),
                         meta.get('date', ''),
+                        email_data.get('severity_score', 0),  # NEW: Include severity
                         ', '.join(email_data['matched_keywords']),
                         ', '.join(email_data['matched_symptoms']),
                         ', '.join(email_data['mentioned_products']),
@@ -472,7 +592,7 @@ class IssueTracker:
 
 
 def main():
-    """Main program for issue tracking"""
+    """Main program for issue tracking - SAME AS BEFORE"""
     print("=" * 80)
     print("PTZOPTICS CRITICAL ISSUE TRACKER")
     print("=" * 80)

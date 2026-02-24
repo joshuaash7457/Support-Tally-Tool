@@ -41,24 +41,20 @@
     "latency",
     "buffering",
     "live stream",
-    "video output"
+    "video output",
+    "obs",
+    "vmix"
   ],
   "Camera Models": [
-    "20x",
-    "12x",
-    "30x",
     "move 4k",
     "move se",
-    "pt20x",
-    "pt12x",
-    "pt30x",
-    "supercam"
+    "studio pro",
+    "studio 4k",
+    "studio SE"
   ],
   "Software": [
     "ptzoptics app",
     "ip camera tool",
-    "obs",
-    "vmix",
     "companion",
     "software",
     "application",
@@ -100,5 +96,56 @@
     "configure",
     "initial setup",
     "getting started"
+  ],
+  "Errors": [
+	"ARM",
+	"ARM error",
+	"Error",
+	"error",
+	"errors",
+	"0xc000009",
+	"0xc000007b",
+	"Focus Error",
+	"Zoom Error",
+	"AF INIT",
+	"AF INIT OT",
+	"AF INIT OVERTIME",
+	"af init ot",
+	"af init",
+	"recv tomeout",
+	"Describe error"
+
+  ],
+  "Image Settings": [
+	  "Color",
+	  "Image",
+	  "Exposure",
+	  "saturation",
+	  "exposure",
+	  "color settings",
+	  "contrast",
+	  "sharpness",
+	  "hue"
+  ],
+  "Defects": [
+	  "pink flickering",
+	  "purple flickering",
+	  "rattling",
+	  "grinding",
+	  "firmware won't update",
+	  "firmware not updating"
+  ],
+  "Image Issues": [
+	  "blurry",
+	  "blur",
+	  "blooming",
+	  "soft"
+  ],
+  "SuperJoy Issues": [
+	  "freezing"
+        
   ]
+
+	  
+
 }
