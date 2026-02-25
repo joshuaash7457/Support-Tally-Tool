@@ -1,62 +1,62 @@
 {
-  "date": "2026-02-24",
-  "total_emails": 153,
+  "date": "2026-02-25",
+  "total_emails": 137,
   "categories": {
     "Connection Issues": {
       "total_mentions": 0,
       "emails_with_category": 0
     },
     "Firmware": {
-      "total_mentions": 611,
-      "emails_with_category": 68
+      "total_mentions": 637,
+      "emails_with_category": 62
     },
     "PTZ Control": {
-      "total_mentions": 839,
-      "emails_with_category": 100
+      "total_mentions": 766,
+      "emails_with_category": 89
     },
     "Streaming": {
-      "total_mentions": 221,
-      "emails_with_category": 55
+      "total_mentions": 175,
+      "emails_with_category": 46
     },
     "Camera Models": {
-      "total_mentions": 143,
-      "emails_with_category": 44
+      "total_mentions": 137,
+      "emails_with_category": 38
     },
     "Software": {
-      "total_mentions": 49,
-      "emails_with_category": 25
+      "total_mentions": 37,
+      "emails_with_category": 19
     },
     "Power Issues": {
-      "total_mentions": 23,
-      "emails_with_category": 18
+      "total_mentions": 22,
+      "emails_with_category": 17
     },
     "Video Quality": {
-      "total_mentions": 62,
-      "emails_with_category": 7
+      "total_mentions": 60,
+      "emails_with_category": 6
     },
     "Audio": {
-      "total_mentions": 111,
-      "emails_with_category": 39
+      "total_mentions": 78,
+      "emails_with_category": 27
     },
     "Setup/Installation": {
-      "total_mentions": 89,
-      "emails_with_category": 35
+      "total_mentions": 80,
+      "emails_with_category": 31
     },
     "Errors": {
-      "total_mentions": 136,
-      "emails_with_category": 30
+      "total_mentions": 82,
+      "emails_with_category": 22
     },
     "Image Settings": {
-      "total_mentions": 366,
-      "emails_with_category": 66
+      "total_mentions": 317,
+      "emails_with_category": 59
     },
     "Defects": {
       "total_mentions": 0,
       "emails_with_category": 0
     },
     "Image Issues": {
-      "total_mentions": 47,
-      "emails_with_category": 26
+      "total_mentions": 37,
+      "emails_with_category": 21
     },
     "SuperJoy Issues": {
       "total_mentions": 8,

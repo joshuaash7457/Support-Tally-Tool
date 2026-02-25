@@ -1,0 +1,66 @@
+{
+  "date": "2026-02-25",
+  "total_emails": 497,
+  "categories": {
+    "Connection Issues": {
+      "total_mentions": 10,
+      "emails_with_category": 10
+    },
+    "Firmware": {
+      "total_mentions": 1408,
+      "emails_with_category": 197
+    },
+    "PTZ Control": {
+      "total_mentions": 2415,
+      "emails_with_category": 343
+    },
+    "Streaming": {
+      "total_mentions": 801,
+      "emails_with_category": 208
+    },
+    "Camera Models": {
+      "total_mentions": 391,
+      "emails_with_category": 147
+    },
+    "Software": {
+      "total_mentions": 152,
+      "emails_with_category": 77
+    },
+    "Power Issues": {
+      "total_mentions": 85,
+      "emails_with_category": 51
+    },
+    "Video Quality": {
+      "total_mentions": 73,
+      "emails_with_category": 15
+    },
+    "Audio": {
+      "total_mentions": 770,
+      "emails_with_category": 139
+    },
+    "Setup/Installation": {
+      "total_mentions": 363,
+      "emails_with_category": 130
+    },
+    "Errors": {
+      "total_mentions": 331,
+      "emails_with_category": 77
+    },
+    "Image Settings": {
+      "total_mentions": 874,
+      "emails_with_category": 205
+    },
+    "Defects": {
+      "total_mentions": 4,
+      "emails_with_category": 4
+    },
+    "Image Issues": {
+      "total_mentions": 156,
+      "emails_with_category": 83
+    },
+    "SuperJoy Issues": {
+      "total_mentions": 11,
+      "emails_with_category": 5
+    }
+  }
+}

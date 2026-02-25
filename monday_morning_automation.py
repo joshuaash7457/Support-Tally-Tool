@@ -36,6 +36,7 @@ def monday_morning_report():
         'cmp_autotracking_issue.json',
         'example_firmware_reboot_issue.json',
         'superjoy_4k_freezing_issue.json',
+        'dark_image_issues.json',
         # Add more issue config files here as needed
     ]
     

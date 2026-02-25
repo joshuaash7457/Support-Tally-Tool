@@ -1,0 +1,81 @@
+{
+  "issue_name": "Dark Image Issues",
+  "issue_id": "DARK-IMAGE-2026-001",
+  "date_reported": "2026-02-25",
+  "severity": "HIGH",
+  "description": "Cameras producing images that are too dark, affecting visibility and video quality in various lighting conditions",
+  "keywords": {
+    "primary": [
+      "too dark",
+      "dark",
+      "dark image",
+      "image too dark",
+      "video too dark",
+      "underexposed",
+      "barely visible",
+      "very dark",
+      "extremely dark",
+      "dim image",
+      "low brightness",
+      "exposure too low"
+    ],
+    "symptoms": [
+      "needs more light",
+      "brightness issue",
+      "visibility problem",
+      "can barely see",
+      "way too dark",
+      "darker than usual",
+      "lighting problem",
+      "exposure problem",
+      "image quality poor"
+    ],
+    "camera_models": [
+      
+    ],
+    "context": [
+
+    ],
+    "settings": [
+      "exposure",
+      "gain",
+      "iris",
+      "aperture",
+      "backlight",
+      "white balance",
+      "gamma",
+      "auto exposure",
+      "manual exposure",
+      "brightness setting"
+    ]
+  },
+  "exclude_keywords": [
+
+   ],
+  "affected_products": [
+   
+  ],
+  "match_criteria": {
+    "require_primary": true,
+    "require_symptom": false,
+    "require_camera_models": false,
+    "require_context": false,
+    "match_mode": "any",
+    "minimum_keyword_matches": 1,
+    "exclude_if_resolved": true
+  },
+  "tracking_metrics": {
+    "alert_threshold": 8,
+    "escalation_threshold": 15,
+    "trend_window_days": 7,
+    "priority_keywords": [
+      "too dark",
+      "dark",
+      "dark image",
+      "underexposed",
+      "can't see",
+      "barely visible",
+      "very dark"
+    ]
+  }
+}

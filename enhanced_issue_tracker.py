@@ -270,6 +270,22 @@ class IssueTracker:
         
         return emails, metadata
     
+    def deduplicate_keep_highest_severity(self, matched_emails):
+        """Keep only the highest severity email from each conversation thread"""
+        conversations = {}
+        
+        for email_data in matched_emails:
+            subject = email_data.get('metadata', {}).get('subject', '')
+            # Clean subject - remove Re:, RE:, Fwd:, FW: prefixes
+            clean_subject = re.sub(r'^(Re:|RE:|Fwd:|FW:)\s*', '', subject, flags=re.IGNORECASE).strip()
+            severity = email_data.get('severity_score', 0)
+            
+            # Keep the highest severity email for each conversation
+            if clean_subject not in conversations or severity > conversations[clean_subject]['severity_score']:
+                conversations[clean_subject] = email_data
+        
+        return list(conversations.values())
+    
     def analyze_for_issue(self, emails, metadata=None, show_progress=True):
         """
         Analyze emails for the specific issue with severity scoring
@@ -384,10 +400,19 @@ class IssueTracker:
                 }
                 matched_emails.append(email_data)
         
+        # NEW: Deduplicate conversation threads (keep highest severity from each thread)
+        matched_emails = self.deduplicate_keep_highest_severity(matched_emails)
+        
+        # NEW: Deduplicate conversation threads (keep highest severity from each thread)
+        original_count = len(matched_emails)
+        matched_emails = self.deduplicate_keep_highest_severity(matched_emails)
+        deduplicated_count = len(matched_emails)
+        
         # Sort by severity score (highest first)
         matched_emails.sort(key=lambda x: x['severity_score'], reverse=True)
         
-        # NEW: Calculate severity statistics
+        # NEW: Recalculate severity statistics after deduplication
+        severity_scores = [email['severity_score'] for email in matched_emails]
         avg_severity = sum(severity_scores) / len(severity_scores) if severity_scores else 0
         high_severity_count = len([s for s in severity_scores if s >= 10])
         critical_severity_count = len([s for s in severity_scores if s >= 15])
@@ -395,6 +420,7 @@ class IssueTracker:
         self.results = {
             'total_emails_analyzed': len(emails),
             'matched_emails_count': len(matched_emails),
+            'original_matches': original_count,  # NEW: Track original count before deduplication
             'match_percentage': (len(matched_emails) / len(emails) * 100) if emails else 0,
             'keyword_matches': dict(keyword_matches),
             'symptom_matches': dict(symptom_matches),
@@ -411,8 +437,10 @@ class IssueTracker:
         self.affected_emails = matched_emails
         
         print(f"\n✓ Analysis complete!")
-        print(f"  Found {len(matched_emails)} emails matching issue criteria")
-        print(f"  ({self.results['match_percentage']:.2f}% of total)")
+        print(f"  Found {original_count} total email matches")
+        if original_count != deduplicated_count:
+            print(f"  Deduplicated to {deduplicated_count} unique conversations")
+        print(f"  ({self.results['match_percentage']:.2f}% of total emails)")
         
         # NEW: Show severity summary
         if severity_scores:
@@ -454,6 +482,9 @@ class IssueTracker:
         lines.append("-" * 80)
         lines.append(f"Total Emails Analyzed: {self.results['total_emails_analyzed']}")
         lines.append(f"Emails Matching Issue: {self.results['matched_emails_count']}")
+        if self.results.get('original_matches', 0) > self.results['matched_emails_count']:
+            lines.append(f"Original Matches (before deduplication): {self.results['original_matches']}")
+            lines.append(f"Unique Conversations: {self.results['matched_emails_count']}")
         lines.append(f"Match Percentage: {self.results['match_percentage']:.2f}%")
         
         # NEW: Severity summary
